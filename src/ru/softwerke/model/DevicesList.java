@@ -8,7 +8,4 @@ public class DevicesList {
     public void addDevice(Device device){
         devices.add(device);
     }
-
-
-
 }
