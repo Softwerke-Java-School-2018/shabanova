@@ -57,5 +57,4 @@ public class Main {
                 }
         } while (!inputLine.equals("0"));
     }
-
 }
