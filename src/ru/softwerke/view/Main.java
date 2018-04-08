@@ -54,8 +54,6 @@ public class Main {
                             master.deleteClientId(id);
                         }
                         break;
-
-
                 }
         } while (!inputLine.equals("0"));
     }
