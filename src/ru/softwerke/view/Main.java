@@ -16,7 +16,6 @@ public class Main {
         DeviceController deviceController = new DeviceController();
         String firstName = null;
         String lastName = null;
-        String patronymic = null;
         String birth = null;
         LocalDate releaseDate;
         Type type;
@@ -24,18 +23,22 @@ public class Main {
         String manufactured;
         BigDecimal price;
         MenuDisplay menu = new MenuDisplay();
+        OutPut output = new OutPut();
         Scanner sc = new Scanner(System.in);
         String inputLine;
         menu.displayMainMenu();
+        clientController.addClient("Borya", "Semenov", "28.11.1985");
+        clientController.addClient("Kolyan", "Obramkin", "01.02.1997");
+        clientController.addClient("Vasya", "Pupkin", "11.02.1998");
         do {
             inputLine = sc.nextLine();
             if (!inputLine.equals(MenuItems.EXIT))
                 switch (inputLine) {
                     case MenuItems.ADD_CLIENT:
-                        clientController.addClient("Borya", "Semenov", "28.11.1985");
-                        clientController.addClient("Kolyan", "Obramkin", "01.02.1997");
-                        clientController.addClient("Vasya", "Pupkin", "11.02.1998");
-                        clientController.addClient(firstName, lastName, patronymic, birth);
+                        firstName = output.enterClientFirstName();
+                        lastName = output.enterClientLastName();
+                        birth = output.enterClientBirthName();
+                        clientController.addClient(firstName, lastName,  birth);
                         break;
                     case MenuItems.ADD_DEVICE:
                         deviceController.addDevice(Type.Smartphone, "Samsung", "10.10.2000", Color.Black, BigDecimal.valueOf(9800));

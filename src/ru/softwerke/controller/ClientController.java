@@ -13,26 +13,12 @@ import java.util.LinkedList;
 
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
-    OutPut outPut;
-
-    public void addClient(String firstName, String lastName, String patronymic, String birth) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
-        LocalDate dateBirth = LocalDate.parse(birth, formatter);
-        Client client = new Client.Builder().firstName(firstName)
-                .lastName(lastName)
-                .dataBirth(dateBirth)
-                .patronymic(patronymic)
-                .id().build();
-        clientsList.addClientToList(client);
-    }
+    OutPut outPut = new OutPut();
 
     public void addClient(String firstName, String lastName, String birth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
         LocalDate dateBirth = LocalDate.parse(birth, formatter);
-        Client client = new Client.Builder().firstName(firstName)
-                .lastName(lastName)
-                .dataBirth(dateBirth)
-                .id().build();
+        Client client = new Client(firstName, lastName, dateBirth);
         clientsList.addClientToList(client);
     }
 
@@ -42,9 +28,8 @@ public class ClientController {
             outPut.listClientsIsEmpty();
         }
         else {
-            for (Client c : clients) {
-                System.out.println("Client: " + c.getFirstName() + " " + c.getLastName()+ " "
-                        + c.getDataBirth()+ " ID: " + c.getId() + "\n");
+            for (Client client : clients) {
+                outPut.showClient(client);
             }
         }
     }

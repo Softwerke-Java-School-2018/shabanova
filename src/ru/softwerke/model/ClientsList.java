@@ -32,7 +32,7 @@ public class ClientsList {
             }
         }
     }
-    public Stream<Client> getClients() {
-        return clients.stream();
+    public ArrayList<Client> getClients() {
+        return clients;
     }
 }
