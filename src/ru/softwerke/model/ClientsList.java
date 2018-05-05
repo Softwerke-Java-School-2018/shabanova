@@ -3,7 +3,6 @@ package ru.softwerke.model;
 import ru.softwerke.controller.OutPutController;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 public class ClientsList {
     private ArrayList<Client> clients = new ArrayList<>();

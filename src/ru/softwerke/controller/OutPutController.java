@@ -1,9 +1,9 @@
 package ru.softwerke.controller;
 
-import ru.softwerke.view.OutPut;
+import ru.softwerke.view.Output;
 
 public class OutPutController {
-    private OutPut out;
+    private Output out;
 
     public void listClientsIsEmpty(){
         out.listClientsIsEmpty();

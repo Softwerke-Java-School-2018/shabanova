@@ -1,36 +1,31 @@
 package ru.softwerke.model;
 
-import ru.softwerke.model.Client;
-import ru.softwerke.model.Device;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class Invoice {
     Client client;
-    Device device;
-    LocalDate Date;
+    List<InvoiceLine> invoiceLines;
+    LocalDateTime Date;
 
     public Client getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Device getDevice() {
-        return device;
-    }
-
-    public void setDevice(Device device) {
-        this.device = device;
-    }
-
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return Date;
     }
 
-    public void setDate(LocalDate date) {
+    public Invoice(Client client, List<InvoiceLine> invoiceLines, LocalDateTime date) {
+        this.client = client;
+        this.invoiceLines = invoiceLines;
         Date = date;
     }
+
+    public List<InvoiceLine> getInvoiceLines() {
+
+        return invoiceLines;
+    }
+
+
 }

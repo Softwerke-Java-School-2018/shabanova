@@ -1,19 +1,15 @@
 package ru.softwerke.controller;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import ru.softwerke.model.*;
-import ru.softwerke.view.OutPut;
-import sun.awt.image.ImageWatched;
+import ru.softwerke.view.Output;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
-    OutPut outPut = new OutPut();
+    Output output = new Output();
 
     public void addClient(String firstName, String lastName, String birth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
@@ -25,11 +21,11 @@ public class ClientController {
     public void showListOfClients(){
         ArrayList<Client> clients = (ArrayList<Client>) clientsList.getClients();
         if (clients.size() == 0){
-            outPut.listClientsIsEmpty();
+            output.listClientsIsEmpty();
         }
         else {
             for (Client client : clients) {
-                outPut.showClient(client);
+                output.showClient(client);
             }
         }
     }
@@ -44,5 +40,17 @@ public class ClientController {
         }else{
             return false;
         }
+    }
+
+    public Client findClientById(long idClient) {
+        Client clientWithId = null;
+        ArrayList<Client> clients = (ArrayList<Client>) clientsList.getClients();
+        for (Client client: clients){
+            if (idClient == client.getId()){
+                clientWithId = client;
+            }
+        }
+        return clientWithId;
+
     }
 }

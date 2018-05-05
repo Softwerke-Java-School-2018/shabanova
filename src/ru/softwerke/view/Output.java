@@ -4,7 +4,7 @@ import ru.softwerke.model.Client;
 
 import java.util.Scanner;
 
-public class OutPut {
+public class Output {
 
     private Scanner sc = new Scanner(System.in);
 
