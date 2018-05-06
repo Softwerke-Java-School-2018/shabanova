@@ -22,7 +22,7 @@ public class Main {
         String firstName = null;
         String lastName = null;
         String birth = null;
-        LocalDate releaseDate;
+        String releaseDate;
         Type type;
         Color color;
         String manufactured;
@@ -50,6 +50,7 @@ public class Main {
                         manufactured = output.enterDeviceManuf();
                         releaseDate = output.enterDeviceRealaseDate();
                         color = output.enterColor();
+                        price = output.enterPrice();
                         deviceController.addDevice(type, manufactured, releaseDate, color, price);
                         break;
                     case MenuItems.SHOW_CLIENTS_LIST:

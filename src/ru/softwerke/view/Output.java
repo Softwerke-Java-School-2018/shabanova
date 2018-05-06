@@ -6,6 +6,7 @@ import ru.softwerke.model.Color;
 import ru.softwerke.model.Device;
 import ru.softwerke.model.Type;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -65,7 +66,7 @@ public class Output {
         return readInputLine();
     }
     public Type enterDeviceType() {
-        printTheString("Enter type: \n" + " Tablet - 1 \n Smartphone - 2 \n Laptop - 3 \n Mp3_Player - 4");
+        printTheString("Enter type: \n" + " Tablet - 1 \n"+ " Smartphone - 2 \n" +" Laptop - 3 \n" +" Mp3_Player - 4");
         int in = sc.nextInt();
         Type type;
         boolean flag;
@@ -96,22 +97,37 @@ public class Output {
 
     public String enterDeviceManuf() {
         printTheString("Write the manufacture: ");
+        String str = readInputLine();
         return readInputLine();
     }
 
-    public LocalDate enterDeviceRealaseDate(){
-        printTheString("Input release Date: dd/mm/yyyy");
-        String realese = readInputLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
-        LocalDate releaseDate = LocalDate.parse(realese, formatter);
-        return releaseDate;
+    public String enterDeviceRealaseDate(){
+        printTheString("Input release Date: dd/mm/yyyy: ");
+        return readInputLine();
     }
 
     public Color enterColor() {
         printTheString("Input color: ");
-        String str = readInputLine();
-        for (Color color: Color.values()){
-
+        Color returnColor = Color.White;
+        boolean flag = false;
+        while (!flag) {
+            String str = readInputLine();
+            for (Color color : Color.values()) {
+                if (color.toString().equals(str)) {
+                    flag = true;
+                    returnColor = color;
+                }
+            }
+            if (!flag){
+                printTheString("unknown color, try again (  White, Black, Green, Red, Blue, Yellow, Colored): ");
+            }
         }
+        return returnColor;
+    }
+
+    public BigDecimal enterPrice() {
+        printTheString("Enter the price (format 00.00): ");
+        Long bd = sc.nextLong();
+        return BigDecimal.valueOf(bd);
     }
 }
