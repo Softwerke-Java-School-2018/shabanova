@@ -1,15 +1,13 @@
 package ru.softwerke.view;
 
-import ru.softwerke.controller.ClientController;
-import ru.softwerke.controller.DeviceController;
-import ru.softwerke.controller.InvoiceController;
-import ru.softwerke.controller.InvoiceLineController;
+import ru.softwerke.controller.*;
 import ru.softwerke.model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,7 +19,6 @@ public class Main {
         InvoiceLineController invoiceLineController = new InvoiceLineController();
         InvoiceLine invoiceLine = null;
         LocalDateTime date;
-        ArrayList<InvoiceLine> invoiceLineList = new ArrayList<>();
         String firstName = null;
         String lastName = null;
         String birth = null;
@@ -34,13 +31,10 @@ public class Main {
         Output output = new Output();
         Scanner sc = new Scanner(System.in);
         String inputLine;
+
         menu.displayMainMenu();
-        clientController.addClient("Borya", "Semenov", "28.11.1985");
-        clientController.addClient("Kolyan", "Obramkin", "01.02.1997");
-        clientController.addClient("Vasya", "Pupkin", "11.02.1998");
-        deviceController.addDevice(Type.Smartphone, "Samsung", "10.10.2000", Color.Black, BigDecimal.valueOf(9800));
-        deviceController.addDevice(Type.Tablet, "Samsung", "05.05.2010", Color.White, BigDecimal.valueOf(12500.50));
-        deviceController.addDevice(Type.Laptop, "Acer", "25.03.2012", Color.Black, BigDecimal.valueOf(25000));
+        AutoAddClientsDevices addAuto = new AutoAddClientsDevices();
+        addAuto.autoAdd(clientController, deviceController);
         do {
             inputLine = sc.nextLine();
             if (!inputLine.equals(MenuItems.EXIT))
@@ -49,52 +43,71 @@ public class Main {
                         firstName = output.enterClientFirstName();
                         lastName = output.enterClientLastName();
                         birth = output.enterClientBirthName();
-                        clientController.addClient(firstName, lastName,  birth);
+                        clientController.addClient(firstName, lastName, birth);
                         break;
                     case MenuItems.ADD_DEVICE:
+                        type = output.enterDeviceType();
+                        manufactured = output.enterDeviceManuf();
+                        releaseDate = output.enterDeviceRealaseDate();
+                        color = output.enterColor();
+                        deviceController.addDevice(type, manufactured, releaseDate, color, price);
                         break;
-                    case "3":
-                       clientController.showListOfClients();
+                    case MenuItems.SHOW_CLIENTS_LIST:
+                        clientController.showListOfClients();
                         break;
-                    case "4":
-                        System.out.println("Input clients ID to remove");
-                        long id = sc.nextLong();
-                        if (clientController.checkEmptyListClient()){
-                            System.out.println("List of clients is empty");
-                        }else {
+                    case MenuItems.SHOW_DEVICES_LIST:
+                        deviceController.showListOfDevices();
+                        break;
+                    case MenuItems.DELETE_CLIENT_FROM_LIST:
+                        output.printTheString("Input clients ID to remove");
+                        long id = output.readInputLong();
+                        if (clientController.checkEmptyListClient()) {
+                            output.listClientsIsEmpty();
+                        } else {
                             clientController.deleteClientId(id);
                         }
                         break;
                     case MenuItems.CREATE_INVOICE:
-                        System.out.println("List of clients: ");
+                        output.printTheString("List of clients: ");
+                        output.printNamesOfClients();
                         clientController.showListOfClients();
-                        System.out.println("ID Client: ");
-                        long idClient = sc.nextLong();
-                        Client client = clientController.findClientById(idClient);
-                        int ch = 1;
-                        Device device = null;
-                        long numberSoldItems;
-                        while (ch == 1) {
-
-                            System.out.println("ID of sold item: ");
-                            long idDevice = sc.nextLong();
-                            System.out.println("number of sold item: ");
-                            numberSoldItems = sc.nextInt();
-                            device = deviceController.findDeviceById(idDevice);
-                            invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
-                            invoiceLineController.addInvoiceLineToList(invoiceLine);
-                            System.out.println("Add another item? 'YES - 1 /N - 0' ");
-                            ch = sc.nextInt();
+                        output.printTheString("Number of customers: ");
+                        int i = sc.nextInt();
+                        List<InvoiceLine> invoiceLineList = new ArrayList<>();
+                        for (int j = 0; j < i; j++) {
+                            invoiceLineList.clear();
+                            output.printTheString("ID Client: ");
+                            long idClient = output.readInputLong();
+                            Client client = clientController.findClientById(idClient);
+                            int ch = 1;
+                            Device device = null;
+                            long numberSoldItems;
+                            output.printTheString("List of devices: ");
+                            output.printNamesOfDevice();
+                            deviceController.showListOfDevices();
+                            while (ch == 1) {
+                                output.printTheString("ID of sold item: ");
+                                long idDevice = output.readInputLong();
+                                output.printTheString("number of sold item: ");
+                                numberSoldItems = sc.nextInt();
+                                device = deviceController.findDeviceById(idDevice);
+                                invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
+                                invoiceLineController.addInvoiceLineToList(invoiceLine);
+                                output.printTheString("Add another item? 'YES - 1 /N - 0' ");
+                                ch = sc.nextInt();
+                            }
+                            invoiceLineList = invoiceLineController.getInvoiceList();
+                            invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now());
                         }
-                        invoiceLineList = invoiceLineController.getInvoiceList();
-                        invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now() );
                         invoiceController.showInvoice();
                         break;
-                        default:
-                            System.out.println("Unknown menu item. Try again");
-                            menu.displayMainMenu();
-                            break;
+                    default:
+                        output.printTheString("Unknown menu item. Try again");
+                        menu.displayMainMenu();
+                        break;
                 }
+            output.printTheString("Input menu item: ");
+            output.readInputLine();
         } while (!inputLine.equals("0"));
 
     }

@@ -1,12 +1,17 @@
 package ru.softwerke.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DevicesList {
-    ArrayList<Device> devices = new ArrayList<>();
+    List<Device> devices = new ArrayList<>();
 
-    public void addDevice(Device device){
+    public void addDevice(Device device)
+    {
         devices.add(device);
     }
-    public ArrayList<Device> getDevicesList() {return devices; }
+    public List<Device> getDevicesList()
+    {
+        return devices;
+    }
 }

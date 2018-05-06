@@ -3,15 +3,19 @@ package ru.softwerke.model;
 import ru.softwerke.controller.OutPutController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientsList {
-    private ArrayList<Client> clients = new ArrayList<>();
+    private List<Client> clients = new ArrayList<>();
     private OutPutController outPut;
-    public void addClientToList(Client person){
+
+    public void addClientToList(Client person)
+    {
         this.clients.add(person);
     }
+
     public void deleteClientFromListById(long id){
-        ArrayList<Client> clients = (ArrayList<Client>) getClients();
+        List<Client> clients = (ArrayList<Client>) getClients();
         if (clients.size() == 0){
             outPut.listClientsIsEmpty();
         }
@@ -25,13 +29,13 @@ public class ClientsList {
                 }
             }
             if (!existId){
-                System.out.println("Not found client with " + id + " ID");
+                outPut.printString("Not found client with " + id + " ID");
             }else{
                 clients.remove(clientForDelete);
             }
         }
     }
-    public ArrayList<Client> getClients() {
+    public List<Client> getClients() {
         return clients;
     }
 }

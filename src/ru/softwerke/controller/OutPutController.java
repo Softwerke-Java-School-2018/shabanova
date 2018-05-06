@@ -8,4 +8,6 @@ public class OutPutController {
     public void listClientsIsEmpty(){
         out.listClientsIsEmpty();
     }
+
+    public void printString(String string){out.printTheString(string);}
 }

@@ -1,5 +1,5 @@
 package ru.softwerke.model;
 
 public enum Color {
-    White, Black, Colored
+    White, Black, Green, Red, Blue, Yellow, Colored
 }

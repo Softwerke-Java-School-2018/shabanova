@@ -6,6 +6,7 @@ import ru.softwerke.view.Output;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
@@ -19,7 +20,7 @@ public class ClientController {
     }
 
     public void showListOfClients(){
-        ArrayList<Client> clients = (ArrayList<Client>) clientsList.getClients();
+        List<Client> clients = (ArrayList<Client>) clientsList.getClients();
         if (clients.size() == 0){
             output.listClientsIsEmpty();
         }

@@ -10,11 +10,12 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DeviceController {
 
     private DevicesList devicesList = new DevicesList();
-    Output output;
+    Output output = new Output();
 
     public void addDevice(Type type, String manufactured, String releaseDate,
                           Color color, BigDecimal price) {
@@ -31,8 +32,16 @@ public class DeviceController {
 
     }
 
+    public void showListOfDevices(){
+        List<Device> devices = devicesList.getDevicesList();
+        for (Device device: devices) {
+            output.showDevice(device);
+        }
+
+    }
+
     public Device findDeviceById(long idDevice) {
-        ArrayList<Device> devices = devicesList.getDevicesList();
+        List<Device> devices = devicesList.getDevicesList();
         Device devicewithId = null;
         for (Device device : devices) {
             if (idDevice == device.getId()) {

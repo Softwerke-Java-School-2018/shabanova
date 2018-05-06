@@ -1,5 +1,5 @@
 package ru.softwerke.model;
 
 public enum Type {
-    Tablet, Smartphone, Laptop, Player
+    Tablet, Smartphone, Laptop, Mp3_Player
 }
