@@ -1,16 +1,17 @@
 package ru.softwerke.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceLineList {
 
-    ArrayList<InvoiceLine> invoiceLineList = new ArrayList<>();
+    private List<InvoiceLine> invoiceLineList = new ArrayList<>();
 
     public void add(InvoiceLine invoiceLine) {
         invoiceLineList.add(invoiceLine);
     }
 
-    public ArrayList<InvoiceLine> getInvoiceLineList (){
+    public List<InvoiceLine> getInvoiceLineList (){
         return invoiceLineList;
     }
 }

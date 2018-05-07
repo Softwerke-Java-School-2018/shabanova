@@ -5,6 +5,7 @@ import ru.softwerke.model.InvoiceLine;
 import ru.softwerke.model.InvoiceLineList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceLineController {
 
@@ -19,7 +20,7 @@ public class InvoiceLineController {
         invoiceLineList.add(invoiceLine);
     }
 
-    public ArrayList<InvoiceLine> getInvoiceList(){
+    public List<InvoiceLine> getInvoiceList(){
         return invoiceLineList.getInvoiceLineList();
     }
 }

@@ -16,7 +16,6 @@ public class Main {
         ClientController clientController = new ClientController();
         DeviceController deviceController = new DeviceController();
         InvoiceController invoiceController = new InvoiceController();
-        InvoiceLineController invoiceLineController = new InvoiceLineController();
         InvoiceLine invoiceLine = null;
         LocalDateTime date;
         String firstName = null;
@@ -75,7 +74,9 @@ public class Main {
                         output.printTheString("Number of customers: ");
                         int i = sc.nextInt();
                         List<InvoiceLine> invoiceLineList = new ArrayList<>();
+                        InvoiceLineController invoiceLineController = new InvoiceLineController();
                         for (int j = 0; j < i; j++) {
+                            InvoiceLineController invoiceLineControllerForOneClient = new InvoiceLineController();
                             invoiceLineList.clear();
                             output.printTheString("ID Client: ");
                             long idClient = output.readInputLong();
@@ -92,14 +93,20 @@ public class Main {
                                 output.printTheString("number of sold item: ");
                                 numberSoldItems = sc.nextInt();
                                 device = deviceController.findDeviceById(idDevice);
-                                invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
-                                invoiceLineController.addInvoiceLineToList(invoiceLine);
+                                invoiceLine = invoiceLineControllerForOneClient.createInvoiceLine(device, numberSoldItems);
+                                invoiceLineControllerForOneClient.addInvoiceLineToList(invoiceLine);
                                 output.printTheString("Add another item? 'YES - 1 /N - 0' ");
                                 ch = sc.nextInt();
                             }
-                            invoiceLineList = invoiceLineController.getInvoiceList();
+                            invoiceLineList = invoiceLineControllerForOneClient.getInvoiceList();
+                            for (InvoiceLine line: invoiceLineList
+                                 ) {
+                                System.out.println("device: " + line.getDevice().getType());
+
+                            } //ДА ЗАПИСЫВАЕТ ЖЕ ДЕЙВАСЫ ПОЧЕМУ НЕ ВЫВОДИТ СЮКА
                             invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now());
                         }
+                        //ПОЧЕМУ ВЫВОДИТ ТОЛЬКО ПОСЛЕДНИЙ АЛЛО
                         invoiceController.showInvoice();
                         break;
                     default:
