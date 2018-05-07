@@ -9,8 +9,10 @@ import ru.softwerke.view.Output;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.softwerke.view.Output.output;
+
 public class InvoiceController {
-    Output out = new Output();
+
     private InvoiceList invoicesList = new InvoiceList();
     public void addInvoice (Client client, List<InvoiceLine> invoiceLines, LocalDateTime date){
         Invoice invoice = new Invoice(client, invoiceLines, date);
@@ -23,12 +25,12 @@ public class InvoiceController {
 
     public void showInvoice (){
         for (Invoice invoice : invoicesList.getInvoicesList()) {
-            out.printTheString("Client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
+            output.printTheString("Client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                     invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                     "Sold items: ");
-            out.printNamesOfInvoice();
+            output.printNamesOfInvoice();
             for (InvoiceLine line : invoice.getInvoiceLines()) {
-                out.printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
+                output.printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
                         String.valueOf(line.getDevice().getId()),
                         String.valueOf(line.getDevice().getType())+" "+line.getDevice().getManufactured(),
                         String.valueOf(line.getDevice().getColor()), String.valueOf(line.getDevice().getReleaseDate()),

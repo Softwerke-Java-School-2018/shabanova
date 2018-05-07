@@ -2,12 +2,13 @@ package ru.softwerke.controller;
 
 import ru.softwerke.view.Output;
 
+import static ru.softwerke.view.Output.output;
+
 public class OutPutController {
-    private Output out;
 
     public void listClientsIsEmpty(){
-        out.listClientsIsEmpty();
+        output.listClientsIsEmpty();
     }
 
-    public void printString(String string){out.printTheString(string);}
+    public void printString(String string){output.printTheString(string);}
 }

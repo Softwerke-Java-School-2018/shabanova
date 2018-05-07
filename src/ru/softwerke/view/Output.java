@@ -3,7 +3,7 @@ package ru.softwerke.view;
 import java.util.Scanner;
 
 public class Output {
-
+    public static Output output = new Output();
     private Scanner sc = new Scanner(System.in);
 
     public void listClientsIsEmpty() {
@@ -47,5 +47,9 @@ public class Output {
         printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
                 "ID", "Device","Color", "Release date", "Price",
                 "Sold", "Sold date");
+    }
+
+    public void listDevicesIsEmpty() {
+        printTheString("List of devices is empty");
     }
 }

@@ -5,9 +5,10 @@ import ru.softwerke.controller.OutPutController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.softwerke.view.Output.output;
+
 public class ClientsList {
     private List<Client> clients = new ArrayList<>();
-    private OutPutController outPut;
 
     public void addClientToList(Client person)
     {
@@ -15,9 +16,9 @@ public class ClientsList {
     }
 
     public void deleteClientFromListById(long id){
-        List<Client> clients = (ArrayList<Client>) getClients();
+        List<Client> clients = getClients();
         if (clients.size() == 0){
-            outPut.listClientsIsEmpty();
+            output.listClientsIsEmpty();
         }
         else{
             boolean existId = false;
@@ -29,9 +30,10 @@ public class ClientsList {
                 }
             }
             if (!existId){
-                outPut.printString("Not found client with " + id + " ID");
+                output.printTheString("Not found client with " + id + " ID");
             }else{
                 clients.remove(clientForDelete);
+                output.printTheString("Client was deleted");
             }
         }
     }

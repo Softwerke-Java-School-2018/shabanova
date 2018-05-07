@@ -9,65 +9,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static ru.softwerke.view.MenuItems.WORK_WITH_CLIENT;
+import static ru.softwerke.view.MenuItems.WORK_WITH_DEVICE;
+import static ru.softwerke.view.Output.output;
+
 public class Main {
 
     public static void main(String[] args) {
         ClientController clientController = new ClientController();
         DeviceController deviceController = new DeviceController();
         InvoiceController invoiceController = new InvoiceController();
+        WorkWithClientMenu clientMenu = new WorkWithClientMenu();
+        WorkWithDeviceMenu deviceMenu = new WorkWithDeviceMenu();
         InvoiceLine invoiceLine = null;
-        LocalDateTime date;
-        String firstName = null;
-        String lastName = null;
-        String birth = null;
-        String releaseDate;
-        TypeOfDevice type;
-        Color color;
-        String manufactured;
-        BigDecimal price;
+
         MenuDisplay menu = new MenuDisplay();
-        Output output = new Output();
         Scanner sc = new Scanner(System.in);
         String inputLine;
-        ControllerOutputDevices outForDevice = new ControllerOutputDevices();
-        ControllerOutputClient ourForClient = new ControllerOutputClient();
         menu.displayMainMenu();
         AutoAddClientsDevices addAuto = new AutoAddClientsDevices();
         addAuto.autoAdd(clientController, deviceController);
-        Sort sort = new Sort();
+        int item;
         do {
             inputLine = sc.nextLine();
             if (!inputLine.equals(MenuItems.EXIT))
                 switch (inputLine) {
-                    case MenuItems.ADD_CLIENT:
-                        firstName = ourForClient.enterClientFirstName();
-                        lastName = ourForClient.enterClientLastName();
-                        birth = ourForClient.enterClientBirthName();
-                        clientController.addClient(firstName, lastName, birth);
+                    case WORK_WITH_CLIENT:
+                        menu.displayClientMenu();
+                        item = output.readInputInt();
+                        clientMenu.itemMenu(item, clientController);
                         break;
-                    case MenuItems.ADD_DEVICE:
-                        type = outForDevice.enterDeviceType();
-                        manufactured = outForDevice.enterDeviceManuf();
-                        releaseDate = outForDevice.enterDeviceReleaseDate();
-                        color = outForDevice.enterColor();
-                        price = outForDevice.enterPrice();
-                        deviceController.addDevice(type, manufactured, releaseDate, color, price);
-                        break;
-                    case MenuItems.SHOW_CLIENTS_LIST:
-                        clientController.showListOfClients();
-                        break;
-                    case MenuItems.SHOW_DEVICES_LIST:
-                        deviceController.showListOfDevices();
-                        break;
-                    case MenuItems.DELETE_CLIENT_FROM_LIST:
-                        clientController.showListOfClients();
-                        output.printTheString("Input clients ID to remove");
-                        long id = output.readInputLong();
-                        clientController.deleteClientId(id);
-                        break;
-                    case MenuItems.SORT_DEVICES_BI_TYPE_SHOW:
-                        List sortedDevicesByType = deviceController.sortDeviceByType();
-                        deviceController.showListOfDevices(sortedDevicesByType);
+                    case WORK_WITH_DEVICE:
+                        menu.displayDeviceMenu();
+                        item = output.readInputInt();
+                        deviceMenu.itemMenu(item, deviceController);
                         break;
                     case MenuItems.CREATE_INVOICE:
                         output.printTheString("List of clients: ");
@@ -106,17 +81,13 @@ public class Main {
                     case MenuItems.SHOW_INVOICES_lIST:
                         invoiceController.showInvoice();
                         break;
-                    case MenuItems.SHOW_DEVICES_SORT_BY_MANUFACT:
-                        List sortedDevicesByManuf = deviceController.sortDeviceByManuFactured();
-                        deviceController.showListOfDevices(sortedDevicesByManuf);
-                        break;
                     default:
                         output.printTheString("Unknown menu item. Try again");
                         menu.displayMainMenu();
                         break;
                 }
+            menu.displayMainMenu();
             output.printTheString("Input menu item: ");
- //           output.readInputLine();
         } while (!inputLine.equals("0"));
 
     }
