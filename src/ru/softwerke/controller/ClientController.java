@@ -11,6 +11,7 @@ import java.util.List;
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
     Output output = new Output();
+    ControllerOutputClient outClient = new ControllerOutputClient();
 
     public void addClient(String firstName, String lastName, String birth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
@@ -26,7 +27,7 @@ public class ClientController {
         }
         else {
             for (Client client : clients) {
-                output.showClient(client);
+                outClient.showClient(client);
             }
         }
     }

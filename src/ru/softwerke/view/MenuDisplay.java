@@ -10,6 +10,9 @@ public class MenuDisplay {
         out.printTheString("3 - show clients list");
         out.printTheString("4 - show devices list");
         out.printTheString("5 - delete client from list");
-        out.printTheString("6 - make invoice");
+        out.printTheString("6 - show devices sort by Type");
+        out.printTheString("7 - make invoice");
+        out.printTheString("8 - show list of invoices");
+        out.printTheString("9 - show devices sort by Manufactured");
     }
 }

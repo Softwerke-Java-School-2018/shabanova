@@ -26,12 +26,14 @@ public class InvoiceController {
             out.printTheString("Client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                     invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                     "Sold items: ");
-            out.printNamesOfDevice();
+            out.printNamesOfInvoice();
             for (InvoiceLine line : invoice.getInvoiceLines()) {
-                out.printFormattedString6("|%5s| |%20s| |%12s| |%12s| |%12s| \n",String.valueOf(line.getDevice().getId()),
-                        String.valueOf(line.getDevice().getType())+line.getDevice().getManufactured(),
+                out.printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
+                        String.valueOf(line.getDevice().getId()),
+                        String.valueOf(line.getDevice().getType())+" "+line.getDevice().getManufactured(),
                         String.valueOf(line.getDevice().getColor()), String.valueOf(line.getDevice().getReleaseDate()),
-                        String.valueOf(line.getDevice().getPrice()) + " - " + line.getCount());
+                        String.valueOf(line.getDevice().getPrice()) ,String.valueOf(line.getCount()),
+                        String.valueOf(invoice.getDate()));
             //    System.out.println(line.getDevice().getId() + " " + line.getDevice().getType() + " " + line.getCount());
             }
         }

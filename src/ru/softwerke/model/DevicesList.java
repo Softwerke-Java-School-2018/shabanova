@@ -14,4 +14,17 @@ public class DevicesList {
     {
         return devices;
     }
+
+    public List<Device> sortByType(){
+        List returnList = new ArrayList();
+        for (Enum en: TypeOfDevice.values()) {
+            for (Device device : devices) {
+                if (device.getType().equals(en)){
+                    returnList.add(device);
+                }
+
+            }
+        }
+        return returnList;
+    }
 }

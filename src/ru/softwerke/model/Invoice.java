@@ -1,6 +1,7 @@
 package ru.softwerke.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Invoice {
@@ -18,7 +19,7 @@ public class Invoice {
 
     public Invoice(Client client, List<InvoiceLine> invoiceLines, LocalDateTime date) {
         this.client = client;
-        this.invoiceLines = invoiceLines;
+        this.invoiceLines = new ArrayList<>(invoiceLines);
         Date = date;
     }
 

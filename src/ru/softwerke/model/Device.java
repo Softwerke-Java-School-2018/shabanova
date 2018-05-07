@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Device {
     private long Id;
     private LocalDate releaseDate;
-    private Type type;
+    private TypeOfDevice type;
     private Color color;
     private String manufactured;
     private BigDecimal price;
@@ -28,11 +28,11 @@ public class Device {
         this.releaseDate = releaseDate;
     }
 
-    public Type getType() {
+    public TypeOfDevice getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(TypeOfDevice type) {
         this.type = type;
     }
 
