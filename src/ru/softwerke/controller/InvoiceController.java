@@ -36,7 +36,6 @@ public class InvoiceController {
                         String.valueOf(line.getDevice().getColor()), String.valueOf(line.getDevice().getReleaseDate()),
                         String.valueOf(line.getDevice().getPrice()) ,String.valueOf(line.getCount()),
                         String.valueOf(invoice.getDate()));
-            //    System.out.println(line.getDevice().getId() + " " + line.getDevice().getType() + " " + line.getCount());
             }
         }
     }

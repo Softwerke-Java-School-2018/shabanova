@@ -82,7 +82,7 @@ public class ClientController {
                 Client client = findClientById(i);
                 outClient.showClient(client);
             }
-            long idToRemove = output.readInputLong();
+            long idToRemove = Long.parseLong(output.readInputLine());
             clientsList.deleteClientFromListById(idToRemove);
             output.printTheString("Client was deleted");
         }

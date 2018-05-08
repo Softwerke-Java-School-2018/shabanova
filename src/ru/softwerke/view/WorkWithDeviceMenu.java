@@ -14,7 +14,7 @@ import static ru.softwerke.view.Output.output;
  * Created by Тапок on 07.05.2018.
  */
 public class WorkWithDeviceMenu {
-    public void itemMenu(int item, DeviceController deviceController){
+    public void itemMenu(String item, DeviceController deviceController){
         ControllerOutputDevices outForDevice = new ControllerOutputDevices();
         String releaseDate;
         TypeOfDevice type;
@@ -46,7 +46,6 @@ public class WorkWithDeviceMenu {
                 break;
                 case MenuItems.DELETE_DEVICE_BY_TYPE_AND_MANUF:
                     output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
-                    output.readInputLine();
                     String strType = output.readInputLine();
                     output.printTheString("Enter manufactured of device:");
                     String strManuf  = output.readInputLine();

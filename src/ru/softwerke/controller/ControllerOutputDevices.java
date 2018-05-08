@@ -17,7 +17,7 @@ import static ru.softwerke.view.Output.output;
 public class ControllerOutputDevices {
     public TypeOfDevice enterDeviceType() {
         output.printTheString("Enter type: \n" + " Tablet - 1 \n"+ " Smartphone - 2 \n" +" Laptop - 3 \n" +" Mp3_Player - 4");
-        int in = output.readInputInt();
+        int in = Integer.parseInt(output.readInputLine());
         TypeOfDevice type;
         boolean flag;
         do {

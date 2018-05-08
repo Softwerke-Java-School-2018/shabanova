@@ -17,10 +17,6 @@ public class Output {
     public String readInputLine(){
         return sc.nextLine();
     }
-    public long readInputLong(){
-        return sc.nextLong();
-    }
-    public int readInputInt(){return sc.nextInt(); }
 
     public void printFormattedString5(String string1, String string2, String string3, String string4, String string5){
         System.out.printf(string1, string2, string3, string4, string5);

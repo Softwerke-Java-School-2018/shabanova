@@ -24,24 +24,23 @@ public class Main {
         InvoiceLine invoiceLine = null;
 
         MenuDisplay menu = new MenuDisplay();
-        Scanner sc = new Scanner(System.in);
         String inputLine;
         menu.displayMainMenu();
         AutoAddClientsDevices addAuto = new AutoAddClientsDevices();
         addAuto.autoAdd(clientController, deviceController);
-        int item;
+        String item;
+        inputLine = output.readInputLine();
         do {
-            inputLine = sc.nextLine();
             if (!inputLine.equals(MenuItems.EXIT))
                 switch (inputLine) {
                     case WORK_WITH_CLIENT:
                         menu.displayClientMenu();
-                        item = output.readInputInt();
+                        item = output.readInputLine();
                         clientMenu.itemMenu(item, clientController);
                         break;
                     case WORK_WITH_DEVICE:
                         menu.displayDeviceMenu();
-                        item = output.readInputInt();
+                        item = output.readInputLine();
                         deviceMenu.itemMenu(item, deviceController);
                         break;
                     case MenuItems.CREATE_INVOICE:
@@ -51,31 +50,26 @@ public class Main {
                         List<InvoiceLine> invoiceLineList = new ArrayList<>();
                         InvoiceLineController invoiceLineController = new InvoiceLineController();
                         output.printTheString("ID Client: ");
-                        long idClient = output.readInputLong();
+                        long idClient = Long.parseLong(output.readInputLine());
                         Client client = clientController.findClientById(idClient);
-                        int ch = 1;
+                        String ch = "1";
                         Device device = null;
                         long numberSoldItems;
                         output.printTheString("List of devices: ");
                         output.printNamesOfDevice();
                         deviceController.showListOfDevices();
-                        while (ch == 1) {
+                        while (ch.equals("1")) {
                             output.printTheString("ID of sold item: ");
-                            long idDevice = output.readInputLong();
+                            long idDevice = Long.parseLong(output.readInputLine());
                             output.printTheString("number of sold item: ");
-                            numberSoldItems = sc.nextInt();
+                            numberSoldItems = Integer.parseInt(output.readInputLine());
                             device = deviceController.findDeviceById(idDevice);
                             invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
                             invoiceLineController.addInvoiceLineToList(invoiceLine);
-                            output.printTheString("Add another item? 'YES - 1 /N - 0' ");
-                            ch = sc.nextInt();
+                            output.printTheString("Add another item? 'YES - 1 /NO - 0' ");
+                            ch = output.readInputLine();
                         }
                         invoiceLineList = invoiceLineController.getInvoiceList();
-                        for (InvoiceLine line : invoiceLineList
-                                ) {
-                            System.out.println("device: " + line.getDevice().getType());
-
-                        }
                         invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now());
                         break;
                     case MenuItems.SHOW_INVOICES_lIST:
@@ -83,11 +77,12 @@ public class Main {
                         break;
                     default:
                         output.printTheString("Unknown menu item. Try again");
-                        menu.displayMainMenu();
                         break;
                 }
             menu.displayMainMenu();
             output.printTheString("Input menu item: ");
+            inputLine = output.readInputLine();
+
         } while (!inputLine.equals("0"));
 
     }

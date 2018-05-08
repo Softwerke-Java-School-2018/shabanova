@@ -171,7 +171,7 @@ public List sortDeviceByManuFactured(){
             output.printNamesOfDevice();
             showListOfDevices(foundDevices);
             output.printTheString("Choose ID od device to delete: ");
-            long id = output.readInputLong();
+            long id = Long.parseLong(output.readInputLine());
             devicesList.deleteDeviceFromListById(id);
             output.printTheString("Device was deleted");
 

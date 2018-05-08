@@ -9,7 +9,7 @@ import static ru.softwerke.view.Output.output;
  * Created by Тапок on 07.05.2018.
  */
 public class WorkWithClientMenu {
-    public void itemMenu(int item, ClientController clientController) {
+    public void itemMenu(String item, ClientController clientController) {
         String firstName = null;
         String lastName = null;
         String birth = null;
@@ -28,7 +28,7 @@ public class WorkWithClientMenu {
             case MenuItems.DELETE_CLIENT_FROM_LIST_BY_ID:
                 clientController.showListOfClients();
                 output.printTheString("Input clients ID to remove");
-                long id = output.readInputLong();
+                long id = Long.parseLong(output.readInputLine());
                 clientController.deleteClientId(id);
                 break;
             case MenuItems.DELETE_CLIENT_FROM_LIST_BY_LASTNAME:
