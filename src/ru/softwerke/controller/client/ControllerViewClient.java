@@ -1,15 +1,14 @@
-package ru.softwerke.controller;
+package ru.softwerke.controller.client;
 
-import ru.softwerke.model.Client;
-import ru.softwerke.view.Output;
+import ru.softwerke.model.client.Client;
 
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 /**
  * Created by DS on 07.05.2018.
  */
-public class ControllerOutputClient {
+public class ControllerViewClient {
 
     public String enterClientFirstName (){
         output.printTheString("Enter name :");

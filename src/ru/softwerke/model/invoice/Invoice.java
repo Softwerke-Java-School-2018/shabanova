@@ -1,4 +1,6 @@
-package ru.softwerke.model;
+package ru.softwerke.model.invoice;
+
+import ru.softwerke.model.client.Client;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

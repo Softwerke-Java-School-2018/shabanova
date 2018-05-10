@@ -1,9 +1,9 @@
-package ru.softwerke.model;
+package ru.softwerke.model.device;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 public class DevicesList {
     List<Device> devices = new ArrayList<>();

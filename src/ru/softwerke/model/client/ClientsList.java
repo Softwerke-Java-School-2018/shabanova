@@ -1,11 +1,9 @@
-package ru.softwerke.model;
-
-import ru.softwerke.controller.OutPutController;
+package ru.softwerke.model.client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 public class ClientsList {
     private List<Client> clients = new ArrayList<>();
@@ -33,7 +31,7 @@ public class ClientsList {
                 output.printTheString("Not found client with " + id + " ID");
             }else{
                 clients.remove(clientForDelete);
-                output.printTheString("Client was deleted");
+                output.printTheString("client was deleted");
             }
         }
     }

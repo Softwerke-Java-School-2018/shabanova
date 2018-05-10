@@ -1,7 +1,9 @@
 package ru.softwerke.controller;
 
-import ru.softwerke.model.Color;
-import ru.softwerke.model.TypeOfDevice;
+import ru.softwerke.controller.client.ClientController;
+import ru.softwerke.controller.device.DeviceController;
+import ru.softwerke.model.device.Color;
+import ru.softwerke.model.device.TypeOfDevice;
 
 import java.math.BigDecimal;
 

@@ -1,19 +1,19 @@
-package ru.softwerke.controller;
+package ru.softwerke.controller.client;
 
-import ru.softwerke.model.*;
-import ru.softwerke.view.Output;
+import ru.softwerke.model.client.Client;
+import ru.softwerke.model.client.ClientsList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
     private List<Client> clients = clientsList.getClients();
-    ControllerOutputClient outClient = new ControllerOutputClient();
+    ControllerViewClient outClient = new ControllerViewClient();
 
     public void addClient(String firstName, String lastName, String birth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.MM.yyyy");
@@ -23,7 +23,6 @@ public class ClientController {
     }
 
     public void showListOfClients(){
-     //   List<Client> clients = clientsList.getClients();
         if (clients.size() == 0){
             output.listClientsIsEmpty();
         }
@@ -34,11 +33,9 @@ public class ClientController {
         }
     }
     public void deleteClientId (long id){
-     //   List<Client> clients =  clientsList.getClients();
         clientsList.deleteClientFromListById(id);
     }
     public boolean checkEmptyListClient(){
-      //  List<Client> clients = clientsList.getClients();
         if (clients.size() == 0){
             return true;
         }else{
@@ -48,7 +45,6 @@ public class ClientController {
 
     public Client findClientById(long idClient) {
         Client clientWithId = null;
-     //   List<Client> clients =clientsList.getClients();
         for (Client client: clients){
             if (idClient == client.getId()){
                 clientWithId = client;
@@ -69,12 +65,12 @@ public class ClientController {
         }
         if (idClients.size() == 1){
             clientsList.deleteClientFromListById(idClients.get(0));
-            output.printTheString("Client was deleted");
+            output.printTheString("client was deleted");
         }else if (idClients.size() == 0){
             output.printTheString("Not found client with last name " + lName);
         }
         else{
-            ControllerOutputClient outClient = new ControllerOutputClient();
+            ControllerViewClient outClient = new ControllerViewClient();
             output.printTheString("Found more than one person with last name: " +
                     lName + "\n Input ID of client to remove");
             output.printNamesOfClients();
@@ -84,9 +80,31 @@ public class ClientController {
             }
             long idToRemove = Long.parseLong(output.readInputLine());
             clientsList.deleteClientFromListById(idToRemove);
-            output.printTheString("Client was deleted");
+            output.printTheString("client was deleted");
         }
 
+    }
 
+    public void findClientByLastName(String lName) {
+        List<Client> clientsWithLastName = new ArrayList<>();
+        List<Long> idClients = new ArrayList<>();
+        for (Client client : clients) {
+            if (lName.equalsIgnoreCase(client.getLastName())) {
+                clientsWithLastName.add(client);
+                idClients.add(client.getId());
+            }
+        }
+        if (idClients.size() == 1) {
+            outClient.showClient(clientsWithLastName.get(0));
+        } else if (idClients.size() == 0) {
+            output.printTheString("Not found client with last name " + lName);
+        } else {
+            ControllerViewClient outClient = new ControllerViewClient();
+            output.printTheString("People with last name " + lName);
+            output.printNamesOfClients();
+            for (Client client : clientsWithLastName) {
+                outClient.showClient(client);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package ru.softwerke.model;
+package ru.softwerke.model.invoice;
 
 import java.util.ArrayList;
 import java.util.List;

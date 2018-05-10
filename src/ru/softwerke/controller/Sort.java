@@ -1,10 +1,5 @@
 package ru.softwerke.controller;
 
-import ru.softwerke.model.DevicesList;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by DS on 07.05.2018.
  */

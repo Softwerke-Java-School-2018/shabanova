@@ -1,4 +1,6 @@
-package ru.softwerke.model;
+package ru.softwerke.model.invoice;
+
+import ru.softwerke.model.device.Device;
 
 public class InvoiceLine {
 

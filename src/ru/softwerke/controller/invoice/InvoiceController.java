@@ -1,15 +1,14 @@
-package ru.softwerke.controller;
+package ru.softwerke.controller.invoice;
 
-import ru.softwerke.model.Client;
-import ru.softwerke.model.Invoice;
-import ru.softwerke.model.InvoiceLine;
-import ru.softwerke.model.InvoiceList;
-import ru.softwerke.view.Output;
+import ru.softwerke.model.client.Client;
+import ru.softwerke.model.invoice.Invoice;
+import ru.softwerke.model.invoice.InvoiceLine;
+import ru.softwerke.model.invoice.InvoiceList;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 public class InvoiceController {
 
@@ -25,7 +24,7 @@ public class InvoiceController {
 
     public void showInvoice (){
         for (Invoice invoice : invoicesList.getInvoicesList()) {
-            output.printTheString("Client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
+            output.printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                     invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                     "Sold items: ");
             output.printNamesOfInvoice();

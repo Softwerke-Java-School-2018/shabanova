@@ -1,15 +1,14 @@
-package ru.softwerke.controller;
+package ru.softwerke.controller.device;
 
-import ru.softwerke.model.Color;
-import ru.softwerke.model.Device;
-import ru.softwerke.model.TypeOfDevice;
-import ru.softwerke.view.Output;
+import ru.softwerke.model.device.Color;
+import ru.softwerke.model.device.Device;
+import ru.softwerke.model.device.TypeOfDevice;
 
 import java.math.BigDecimal;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static ru.softwerke.view.Output.output;
+import static ru.softwerke.view.main.Output.output;
 
 /**
  * Created by DS on 07.05.2018.

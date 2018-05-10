@@ -1,4 +1,4 @@
-package ru.softwerke.model;
+package ru.softwerke.model.device;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

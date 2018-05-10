@@ -1,4 +1,4 @@
-package ru.softwerke.model;
+package ru.softwerke.model.client;
 
 import java.time.LocalDate;
 

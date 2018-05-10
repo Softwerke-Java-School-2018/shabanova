@@ -1,10 +1,9 @@
-package ru.softwerke.controller;
+package ru.softwerke.controller.invoice;
 
-import ru.softwerke.model.Device;
-import ru.softwerke.model.InvoiceLine;
-import ru.softwerke.model.InvoiceLineList;
+import ru.softwerke.model.device.Device;
+import ru.softwerke.model.invoice.InvoiceLine;
+import ru.softwerke.model.invoice.InvoiceLineList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InvoiceLineController {

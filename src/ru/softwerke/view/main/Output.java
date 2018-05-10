@@ -1,4 +1,4 @@
-package ru.softwerke.view;
+package ru.softwerke.view.main;
 
 import java.util.Scanner;
 
