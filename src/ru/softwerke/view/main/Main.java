@@ -31,7 +31,7 @@ public class Main {
         String inputLine;
         menu.displayMainMenu();
         AutoAddClientsDevices addAuto = new AutoAddClientsDevices();
-        addAuto.autoAdd(clientController, deviceController);
+        addAuto.autoAdd(clientController, deviceController, invoiceController);
         String item;
         inputLine = output.readInputLine();
         do {

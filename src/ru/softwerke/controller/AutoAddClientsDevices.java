@@ -2,16 +2,26 @@ package ru.softwerke.controller;
 
 import ru.softwerke.controller.client.ClientController;
 import ru.softwerke.controller.device.DeviceController;
+import ru.softwerke.controller.invoice.InvoiceController;
+import ru.softwerke.controller.invoice.InvoiceLineController;
+import ru.softwerke.model.client.Client;
 import ru.softwerke.model.device.Color;
+import ru.softwerke.model.device.Device;
 import ru.softwerke.model.device.TypeOfDevice;
+import ru.softwerke.model.invoice.InvoiceLine;
+import ru.softwerke.model.invoice.InvoiceLineList;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static ru.softwerke.view.main.Output.output;
 
 /**
  * Created by Тапок on 06.05.2018.
  */
 public class AutoAddClientsDevices {
-    public void autoAdd(ClientController clientController, DeviceController deviceController) {
+    public void autoAdd(ClientController clientController, DeviceController deviceController, InvoiceController invoiceController) {
         clientController.addClient("Borya", "Semenov", "28.11.1985");
         clientController.addClient("Kolyan", "Obramkin", "01.02.1997");
         clientController.addClient("Vasya", "Pupkin", "11.02.1998");
@@ -30,5 +40,38 @@ public class AutoAddClientsDevices {
         deviceController.addDevice(TypeOfDevice.Mp3_Player, "Motorola", "01.10.2001", Color.Colored, BigDecimal.valueOf(3450));
         deviceController.addDevice(TypeOfDevice.Mp3_Player, "lg", "01.10.2001", Color.Colored, BigDecimal.valueOf(3650));
         deviceController.addDevice(TypeOfDevice.Smartphone, "LG", "15.12.2015", Color.Yellow, BigDecimal.valueOf(16950));
+
+        InvoiceLineController invoiceLineController = new InvoiceLineController();
+        Client client;
+        List<InvoiceLine> invoiceLineList;
+        Device device1 = deviceController.findDeviceById(1);
+        Device device2 = deviceController.findDeviceById(4);
+        Device device3 = deviceController.findDeviceById(7);
+        InvoiceLine invoiceLine = new InvoiceLine(device1, 1);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLine = new InvoiceLine(device2, 3);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLineList = invoiceLineController.getInvoiceList();
+        client = clientController.findClientById(1);
+        invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2017, 5, 10, 18, 10, 15));
+
+         invoiceLineController = new InvoiceLineController();
+        invoiceLine = new InvoiceLine(device2, 5);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLine = new InvoiceLine(device3, 1);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLineList = invoiceLineController.getInvoiceList();
+        client = clientController.findClientById(5);
+        invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2015, 1, 25, 12, 30, 45));
+
+
+        invoiceLineController = new InvoiceLineController();
+        invoiceLine = new InvoiceLine(device3, 1);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLine = new InvoiceLine(device1, 2);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLineList = invoiceLineController.getInvoiceList();
+        client = clientController.findClientById(3);
+        invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2018, 12, 7, 9, 45, 17));
     }
-    }
+}

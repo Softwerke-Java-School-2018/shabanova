@@ -24,6 +24,7 @@ public class WorkWithInvoiceMenu {
     public static void itemMenu(String item, ClientController clientController, DeviceController deviceController,
                                 InvoiceController invoiceController) {
         InvoiceLine invoiceLine = null;
+        String inputLine;
         switch(item) {
             case InvoicesMenuItems.CREATE_INVOICE:
                 output.printTheString("List of clients: ");
@@ -34,13 +35,13 @@ public class WorkWithInvoiceMenu {
                 output.printTheString("ID client: ");
                 long idClient = Long.parseLong(output.readInputLine());
                 Client client = clientController.findClientById(idClient);
-                String ch = "1";
+                inputLine = "1";
                 Device device = null;
                 long numberSoldItems;
                 output.printTheString("List of devices: ");
                 output.printNamesOfDevice();
                 deviceController.showListOfDevices();
-                while (ch.equals("1")) {
+                while (inputLine.equals("1")) {
                     output.printTheString("ID of sold item: ");
                     long idDevice = Long.parseLong(output.readInputLine());
                     output.printTheString("number of sold item: ");
@@ -49,7 +50,7 @@ public class WorkWithInvoiceMenu {
                     invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
                     invoiceLineController.addInvoiceLineToList(invoiceLine);
                     output.printTheString("Add another item? 'YES - 1 /NO - 0' ");
-                    ch = output.readInputLine();
+                    inputLine = output.readInputLine();
                 }
                 invoiceLineList = invoiceLineController.getInvoiceList();
                 invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now());
@@ -57,6 +58,20 @@ public class WorkWithInvoiceMenu {
             case InvoicesMenuItems.SHOW_INVOICES_lIST:
                 invoiceController.showInvoice();
                 break;
+            case InvoicesMenuItems.FIND_INVOICES_MADE_BY_DATE:
+                output.printTheString("Enter date of invoice: ");
+                inputLine = output.readInputLine();
+                invoiceController.showInvoiceOfDate(inputLine);
+                break;
+            case InvoicesMenuItems.SHOW_INVOICES_SPECIFIC_PERSON:
+                output.printTheString("Enter last name of person to find invoice of person");
+                inputLine = output.readInputLine();
+                invoiceController.showInvoiceOfPerson(inputLine);
+                break;
+            case InvoicesMenuItems.SORT_INVOICES_BY_DATE:
+                invoiceController.sortByDate();
+                break;
+
         }
     }
 }
