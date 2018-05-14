@@ -46,7 +46,6 @@ public class ControllerOutputDevices {
 
     public String enterDeviceManuf() {
         output.printTheString("Write the manufacture: ");
-        String str = output.readInputLine();
         return output.readInputLine();
     }
 

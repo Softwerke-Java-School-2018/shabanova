@@ -5,6 +5,7 @@ import ru.softwerke.model.device.Device;
 import ru.softwerke.model.device.DevicesList;
 import ru.softwerke.model.device.TypeOfDevice;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +31,6 @@ public class DeviceController {
         device.setPrice(price);
         device.setId();
         devicesList.addDevice(device);
-
     }
 
     public void showListOfDevices() {
@@ -60,7 +60,7 @@ public class DeviceController {
     public Device findDeviceByManufactured(String strManufact) {
         Device devicewithManufactured = null;
         for (Device device : devices) {
-            if (strManufact.equals(device.getManufactured())) {
+            if (strManufact.equalsIgnoreCase(device.getManufactured())) {
                 devicewithManufactured = device;
             }
         }
@@ -68,88 +68,17 @@ public class DeviceController {
     }
 
     public List sortDeviceByType() {
-        return devicesList.sortByType();
+        TypeComparator typeComparator = new TypeComparator();
+        List<Device> copiedDevices = new ArrayList<>();
+        copiedDevices.addAll(devices);
+        Collections.sort(copiedDevices, typeComparator);
+        return copiedDevices;
     }
 
-//    public List sortDeviceByManuFactured() {
-//        List<Device> sortedDevices = new ArrayList();
-//        Map<Long, String> stringslist = new HashMap<>();
-//        Map<Long, String> sortedStringslist = new HashMap<>();
-//        String strForCompare1;
-//        String strForCpmpare2;
-//        for (Device device : devicesList.getDevicesList()) {
-//            stringslist.put(device.getId(), device.getManufactured());
-//
-//        }
-//        Iterator<Map.Entry<Long, String>> iterator1 = stringslist.entrySet().iterator();
-//        while (iterator1.hasNext()) {
-//            Map.Entry<Long, String> elementOut = iterator1.next();
-//            strForCompare1 = elementOut.getValue();
-//            Iterator<Map.Entry<Long, String>> iterator2 = stringslist.entrySet().iterator();
-//            while (iterator2.hasNext()) {
-//                Map.Entry<Long, String> elementIn = iterator2.next();
-//                strForCpmpare2 = elementIn.getValue();
-//                if (strForCompare1.equals(strForCpmpare2)) {
-//                    if (!sortedStringslist.containsKey(elementIn.getKey())) {
-//                        sortedStringslist.put(elementIn.getKey(), elementIn.getValue());
-//                        long id = elementIn.getKey();
-//                        sortedDevices.add(findDeviceById(id));
-//                    }
-//                }
-//            }
-//        }
-//        return sortedDevices;
-//    }
-public List createSortedListManufacture() {
-    List<String> returnedList = new ArrayList();
-    Set<String> stringslist = new TreeSet<>();
-    Set<String> sortedStringslist = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-    String strForCompare1;
-    String strForCpmpare2;
-    for (Device device : devicesList.getDevicesList()) {
-        stringslist.add(device.getManufactured());
- }
-    Iterator<String> iterator1 = stringslist.iterator();
-    while (iterator1.hasNext()) {
-        strForCompare1 = iterator1.next();
-        Iterator<String> iterator2 = stringslist.iterator();
-        while (iterator2.hasNext()) {
-            strForCpmpare2 = iterator2.next();
-            if (strForCompare1.equals(strForCpmpare2)) {
-                    sortedStringslist.add(strForCpmpare2);
-            }
-        }
-    }
-    iterator1 = stringslist.iterator();
-    while (iterator1.hasNext()) {
-        returnedList.add(iterator1.next());
-    }
-    return returnedList;
-}
-
-public List sortDeviceByManuFactured(){
-        List<Device> returnedSortedList = new ArrayList<>();
-        List<String> allSortedManufactured = createSortedListManufacture();
-    for (String string: allSortedManufactured) {
-        for (Device device : devicesList.getDevicesList()) {
-            if (string.equals(device.getManufactured())){
-                returnedSortedList.add(device);
-            }
-        }
-
-    }
-    return returnedSortedList;
-}
     public void deleteDeviceId (long id){
         devicesList.deleteDeviceFromListById(id);
     }
-    public boolean checkEmptyListClient(){
-        if (devices.size() == 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
     public void deleteDeviceByTypeManuf(String strType, String strManuf) {
         List<Device> foundDevices = new ArrayList();
         for (Device device: devices) {
@@ -178,4 +107,40 @@ public List sortDeviceByManuFactured(){
 
 
 }
+
+    public List sortDeviceByManuFactured() {
+        ManufacturedComparator manufComparator = new ManufacturedComparator();
+        List<Device> copiedDevices = new ArrayList<>();
+        copiedDevices.addAll(devices);
+        Collections.sort(copiedDevices, manufComparator);
+        return copiedDevices;
+    }
+
+    public List sortDeviceByReleaseDate() {
+        ReleaseDateComparator relDateComparator = new ReleaseDateComparator();
+        List<Device> copiedDevices = new ArrayList<>();
+        copiedDevices.addAll(devices);
+        Collections.sort(copiedDevices, relDateComparator);
+        return copiedDevices;
+    }
+
+    public List findDeviceByType(String type) {
+        List<Device> devicesList = new ArrayList<>();
+        for (Device device : devices) {
+            if (type.equalsIgnoreCase(String.valueOf(device.getType()))) {
+                devicesList.add(device);
+            }
+        }
+        return devicesList;
+    }
+
+    public List findDeviceByManuf(String str) {
+        List<Device> devicesList = new ArrayList<>();
+        for (Device device : devices) {
+            if (str.equalsIgnoreCase(device.getManufactured())) {
+                devicesList.add(device);
+            }
+        }
+        return devicesList;
+    }
 }

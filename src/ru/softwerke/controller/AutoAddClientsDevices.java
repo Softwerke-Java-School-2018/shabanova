@@ -64,7 +64,6 @@ public class AutoAddClientsDevices {
         client = clientController.findClientById(5);
         invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2015, 1, 25, 12, 30, 45));
 
-
         invoiceLineController = new InvoiceLineController();
         invoiceLine = new InvoiceLine(device3, 1);
         invoiceLineController.addInvoiceLineToList(invoiceLine);
@@ -72,6 +71,15 @@ public class AutoAddClientsDevices {
         invoiceLineController.addInvoiceLineToList(invoiceLine);
         invoiceLineList = invoiceLineController.getInvoiceList();
         client = clientController.findClientById(3);
+        invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2018, 12, 7, 9, 45, 17));
+
+        invoiceLineController = new InvoiceLineController();
+        invoiceLine = new InvoiceLine(device2, 1);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLine = new InvoiceLine(device3, 1);
+        invoiceLineController.addInvoiceLineToList(invoiceLine);
+        invoiceLineList = invoiceLineController.getInvoiceList();
+        client = clientController.findClientById(7);
         invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.of(2018, 12, 7, 9, 45, 17));
     }
 }

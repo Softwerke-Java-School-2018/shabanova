@@ -6,6 +6,7 @@ import ru.softwerke.model.client.ClientsList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static ru.softwerke.view.main.Output.output;
@@ -34,13 +35,6 @@ public class ClientController {
     }
     public void deleteClientId (long id){
         clientsList.deleteClientFromListById(id);
-    }
-    public boolean checkEmptyListClient(){
-        if (clients.size() == 0){
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public Client findClientById(long idClient) {
@@ -105,6 +99,26 @@ public class ClientController {
             for (Client client : clientsWithLastName) {
                 outClient.showClient(client);
             }
+        }
+    }
+
+    public void sortByLastName() {
+        LastNameComparator lNamecompare = new LastNameComparator();
+        List<Client> copyClients = new ArrayList<>();
+        copyClients.addAll(clients);
+        Collections.sort(copyClients,lNamecompare);
+        for (Client client : copyClients) {
+            outClient.showClient(client);
+        }
+    }
+
+    public void sortByBirthDate() {
+        BirthDateComparator bDateCompare = new BirthDateComparator();
+        List<Client> copyClients = new ArrayList<>();
+        copyClients.addAll(clients);
+        Collections.sort(copyClients,bDateCompare);
+        for (Client client : copyClients) {
+            outClient.showClient(client);
         }
     }
 }

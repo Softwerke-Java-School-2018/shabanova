@@ -45,6 +45,13 @@ public class WorkWithClientMenu {
                 inputLine = output.readInputLine();
                 clientController.deleteClientLastName(inputLine);
                 break;
+            case ClientsMenuItems.SORT_CLIENTS_BY_LASTNAME:
+                clientController.sortByLastName();
+                break;
+            case ClientsMenuItems.SORT_CLIENTS_BY_BIRTHDATE:
+                clientController.sortByBirthDate();
+                break;
+
 
         }
     }

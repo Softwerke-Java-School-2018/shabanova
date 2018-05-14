@@ -14,4 +14,7 @@ public class InvoiceList {
     public List<Invoice> getInvoicesList (){
         return  invoices;
     }
+    public void deleteInvoice (Invoice invoice){
+        invoices.remove(invoice);
+    }
 }

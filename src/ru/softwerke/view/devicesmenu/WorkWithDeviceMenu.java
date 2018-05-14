@@ -4,7 +4,6 @@ import ru.softwerke.controller.device.ControllerOutputDevices;
 import ru.softwerke.controller.device.DeviceController;
 import ru.softwerke.model.device.Color;
 import ru.softwerke.model.device.TypeOfDevice;
-import ru.softwerke.view.main.MenuItems;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +14,7 @@ import static ru.softwerke.view.main.Output.output;
  * Created by Тапок on 07.05.2018.
  */
 public class WorkWithDeviceMenu {
-    public void itemMenu(String item, DeviceController deviceController){
+    public void itemMenu(String item, DeviceController deviceController) {
         ControllerOutputDevices outForDevice = new ControllerOutputDevices();
         String releaseDate;
         TypeOfDevice type;
@@ -41,16 +40,42 @@ public class WorkWithDeviceMenu {
                 List sortedDevicesByType = deviceController.sortDeviceByType();
                 deviceController.showListOfDevices(sortedDevicesByType);
                 break;
-            case DevicesMenuItems.SHOW_DEVICES_SORT_BY_MANUFACT:
+            case DevicesMenuItems.SORT_DEVICES_BY_MANUFACT:
                 List sortedDevicesByManuf = deviceController.sortDeviceByManuFactured();
                 deviceController.showListOfDevices(sortedDevicesByManuf);
                 break;
+            case DevicesMenuItems.SORT_DEVICES_BY_RELEASEDATE:
+                List sortedDevicesByRelDate = deviceController.sortDeviceByReleaseDate();
+                deviceController.showListOfDevices(sortedDevicesByRelDate);
+
+                break;
             case DevicesMenuItems.DELETE_DEVICE_BY_TYPE_AND_MANUF:
-                    output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
-                    String strType = output.readInputLine();
-                    output.printTheString("Enter manufactured of device:");
-                    String strManuf  = output.readInputLine();
-                    deviceController.deleteDeviceByTypeManuf(strType, strManuf);
+                output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
+                String strType = output.readInputLine();
+                output.printTheString("Enter manufactured of device:");
+                String strManuf = output.readInputLine();
+                deviceController.deleteDeviceByTypeManuf(strType, strManuf);
+                break;
+            case DevicesMenuItems.FIND_DEVICES_BY_TYPE:
+                output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
+                String typeStr = output.readInputLine();
+                List devicesWithTypes = deviceController.findDeviceByType(typeStr);
+                if (devicesWithTypes.size() != 0) {
+                    output.printNamesOfDevice();
+                    deviceController.showListOfDevices(devicesWithTypes);
+                } else {
+                    output.printTheString("Not found device: " + typeStr);
+                }
+                break;
+            case DevicesMenuItems.FIND_DEVICES_BY_MANUF:
+                String str = outForDevice.enterDeviceManuf();
+                List devicesWithManuf = deviceController.findDeviceByManuf(str);
+                if (devicesWithManuf.size() != 0) {
+                    output.printNamesOfDevice();
+                    deviceController.showListOfDevices(devicesWithManuf);
+                } else {
+                    output.printTheString("Not found device: " + str);
+                }
                 break;
         }
     }
