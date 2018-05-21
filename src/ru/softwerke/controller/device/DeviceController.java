@@ -5,13 +5,12 @@ import ru.softwerke.model.device.Device;
 import ru.softwerke.model.device.DevicesList;
 import ru.softwerke.model.device.TypeOfDevice;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class DeviceController {
 
@@ -56,18 +55,7 @@ public class DeviceController {
         }
         return devicewithId;
     }
-
-    public Device findDeviceByManufactured(String strManufact) {
-        Device devicewithManufactured = null;
-        for (Device device : devices) {
-            if (strManufact.equalsIgnoreCase(device.getManufactured())) {
-                devicewithManufactured = device;
-            }
-        }
-        return devicewithManufactured;
-    }
-
-    public List sortDeviceByType() {
+    public List<Device> sortDeviceByType() {
         TypeComparator typeComparator = new TypeComparator();
         List<Device> copiedDevices = new ArrayList<>();
         copiedDevices.addAll(devices);
@@ -79,52 +67,49 @@ public class DeviceController {
         devicesList.deleteDeviceFromListById(id);
     }
 
-    public void deleteDeviceByTypeManuf(String strType, String strManuf) {
-        List<Device> foundDevices = new ArrayList();
+    public void deleteDeviceByTypeManufacturer(String strType, String manufacturer) {
+        List<Device> foundDevices = new ArrayList<>();
         for (Device device: devices) {
             if(strType.equalsIgnoreCase(device.getType().toString()) &&
-                    strManuf.equalsIgnoreCase(device.getManufactured())){
+                    manufacturer.equalsIgnoreCase(device.getManufactured())){
                 foundDevices.add(device);
             }
         }
         if (foundDevices.size() == 0){
-            output.printTheString("Not found: " + strType + " " + strManuf);
+            getOutput().printTheString("Not found: " + strType + " " + manufacturer);
         }else if (foundDevices.size() ==  1){
             Device device = foundDevices.get(0);
             long id = device.getId();
             deleteDeviceId(id);
-            output.printTheString("Device was deleted");
+            getOutput().printTheString("Device was deleted");
         }else{
-            output.printTheString("Found devices: ");
-            output.printNamesOfDevice();
+            getOutput().printTheString("Found devices: ");
+            getOutput().printNamesOfDevice();
             showListOfDevices(foundDevices);
-            output.printTheString("Choose ID od device to delete: ");
-            long id = Long.parseLong(output.readInputLine());
+            getOutput().printTheString("Choose ID od device to delete: ");
+            long id = Long.parseLong(getOutput().readInputLine());
             devicesList.deleteDeviceFromListById(id);
-            output.printTheString("Device was deleted");
-
+            getOutput().printTheString("Device was deleted");
         }
-
-
 }
 
-    public List sortDeviceByManuFactured() {
-        ManufacturedComparator manufComparator = new ManufacturedComparator();
+    public List<Device> findDeviceByManufacturer() {
+        ManufacturerComparator manufacturerComparator = new ManufacturerComparator();
         List<Device> copiedDevices = new ArrayList<>();
         copiedDevices.addAll(devices);
-        Collections.sort(copiedDevices, manufComparator);
+        copiedDevices.sort(manufacturerComparator);
         return copiedDevices;
     }
 
-    public List sortDeviceByReleaseDate() {
+    public List<Device> sortDeviceByReleaseDate() {
         ReleaseDateComparator relDateComparator = new ReleaseDateComparator();
         List<Device> copiedDevices = new ArrayList<>();
         copiedDevices.addAll(devices);
-        Collections.sort(copiedDevices, relDateComparator);
+        copiedDevices.sort(relDateComparator);
         return copiedDevices;
     }
 
-    public List findDeviceByType(String type) {
+    public List<Device> findDeviceByType(String type) {
         List<Device> devicesList = new ArrayList<>();
         for (Device device : devices) {
             if (type.equalsIgnoreCase(String.valueOf(device.getType()))) {
@@ -134,7 +119,7 @@ public class DeviceController {
         return devicesList;
     }
 
-    public List findDeviceByManuf(String str) {
+    public List<Device> findDeviceByManufacturer(String str) {
         List<Device> devicesList = new ArrayList<>();
         for (Device device : devices) {
             if (str.equalsIgnoreCase(device.getManufactured())) {

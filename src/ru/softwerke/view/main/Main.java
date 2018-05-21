@@ -14,7 +14,7 @@ import ru.softwerke.view.invoice.WorkWithInvoiceMenu;
 import static ru.softwerke.view.main.MenuItems.WORK_WITH_CLIENT;
 import static ru.softwerke.view.main.MenuItems.WORK_WITH_DEVICE;
 import static ru.softwerke.view.main.MenuItems.WORK_WITH_INVOICE;
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class Main {
 
@@ -33,32 +33,51 @@ public class Main {
         AutoAddClientsDevices addAuto = new AutoAddClientsDevices();
         addAuto.autoAdd(clientController, deviceController, invoiceController);
         String item;
-        inputLine = output.readInputLine();
+        inputLine = getOutput().readInputLine();
+        boolean exit = false;
         do {
             if (!inputLine.equals(MenuItems.EXIT))
                 switch (inputLine) {
                     case WORK_WITH_CLIENT:
-                        menuClients.displayClientMenu();
-                        item = output.readInputLine();
-                        clientMenu.itemMenu(item, clientController);
+                        do {
+                            menuClients.displayClientMenu();
+                            item = getOutput().readInputLine();
+                            if (!item.equals(MenuItems.EXIT)) {
+                                clientMenu.itemMenu(item, clientController);
+                            } else {
+                                exit = true;
+                            }
+                        } while (!exit);
                         break;
                     case WORK_WITH_DEVICE:
-                        menuDevices.displayDeviceMenu();
-                        item = output.readInputLine();
-                        deviceMenu.itemMenu(item, deviceController);
+                        do {
+                            menuDevices.displayDeviceMenu();
+                            item = getOutput().readInputLine();
+                            if (!item.equals(MenuItems.EXIT)) {
+                                deviceMenu.itemMenu(item, deviceController);
+                            } else {
+                                exit = true;
+                            }
+                        }while (!exit);
                         break;
                     case WORK_WITH_INVOICE:
-                        menuInvoices.displayInvoiceMenu();
-                        item = output.readInputLine();
-                        WorkWithInvoiceMenu.itemMenu(item, clientController, deviceController, invoiceController);
+                        do {
+                            menuInvoices.displayInvoiceMenu();
+                            item = getOutput().readInputLine();
+                            if (!item.equals(MenuItems.EXIT)) {
+                                WorkWithInvoiceMenu.itemMenu(item, clientController, deviceController, invoiceController);
+                            } else {
+                                exit = true;
+                            }
+                        }while(!exit);
                         break;
                     default:
-                        output.printTheString("Unknown menu item. Try again");
+                        getOutput().printTheString("Unknown menu item. Try again");
                         break;
                 }
             menu.displayMainMenu();
-            output.printTheString("Input menu item: ");
-            inputLine = output.readInputLine();
+            getOutput().printTheString("Input menu item: ");
+            inputLine = getOutput().readInputLine();
 
         } while (!inputLine.equals("0"));
 

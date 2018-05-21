@@ -1,6 +1,6 @@
 package ru.softwerke.view.main;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class MenuItems {
 
@@ -9,9 +9,9 @@ public class MenuItems {
     public final static String WORK_WITH_DEVICE = "2";
     public final static String WORK_WITH_INVOICE = "3";
     public void displayMainMenu(){
-        output.printTheString("0 - Exit");
-        output.printTheString("1 - work with client");
-        output.printTheString("2 - work with device");
-        output.printTheString("3 - work with invoice");
+        getOutput().printTheString("0 - Exit");
+        getOutput().printTheString("1 - work with client");
+        getOutput().printTheString("2 - work with device");
+        getOutput().printTheString("3 - work with invoice");
     }
 }

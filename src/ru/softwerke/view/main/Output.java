@@ -3,7 +3,15 @@ package ru.softwerke.view.main;
 import java.util.Scanner;
 
 public class Output {
-    public static Output output = new Output();
+    private Output(){
+    }
+    private static  class OutputHolder {
+        private static Output output = new Output();
+    }
+    public static Output getOutput(){
+        return OutputHolder.output;
+    }
+
     private Scanner sc = new Scanner(System.in);
 
     public void listClientsIsEmpty() {
@@ -18,29 +26,21 @@ public class Output {
         return sc.nextLine();
     }
 
-    public void printFormattedString5(String string1, String string2, String string3, String string4, String string5){
-        System.out.printf(string1, string2, string3, string4, string5);
-    }
-    public void printFormattedString6(String string1, String string2, String string3,
-                                      String string4, String string5, String string6){
-        System.out.printf(string1, string2, string3, string4, string5, string6);
-    }
-    public void printFormattedString8(String string1, String string2, String string3,
-             String string4, String string5, String string6, String string7, String string8){
-        System.out.printf(string1, string2, string3, string4,
-                string5, string6, string7, string8);
-    }
+//    public void printFormattedString(String ...strings) {
+//        System.out.printf(strings);
+//    }
+
     public void printNamesOfDevice(){
-        printFormattedString6("|%5s| |%20s| |%12s| |%12s| |%12s| \n",
+        System.out.printf("|%5s| |%20s| |%12s| |%12s| |%12s| \n",
                 "ID", "Device","Color", "Release date", "Price");
     }
     public void printNamesOfClients(){
-        printFormattedString5("|%5s| |%12s| |%12s| |%14s| \n",
+        System.out.printf("|%5s| |%12s| |%12s| |%14s| \n",
                 "ID", "Name","Last name", "Date of birth");
     }
 
     public void printNamesOfInvoice(){
-        printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
+        System.out.printf("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n",
                 "ID", "Device","Color", "Release date", "Price",
                 "Sold", "Sold date");
     }

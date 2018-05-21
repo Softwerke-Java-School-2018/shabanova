@@ -3,7 +3,7 @@ package ru.softwerke.model.device;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class DevicesList {
     List<Device> devices = new ArrayList<>();
@@ -32,7 +32,7 @@ public class DevicesList {
 
     public void deleteDeviceFromListById(long id) {
         if (devices.size() == 0){
-            output.listDevicesIsEmpty();
+            getOutput().listDevicesIsEmpty();
         }
         else{
             boolean existId = false;
@@ -44,7 +44,7 @@ public class DevicesList {
                 }
             }
             if (!existId){
-                output.printTheString("Not found client with " + id + " ID");
+                getOutput().printTheString("Not found client with " + id + " ID");
             }else{
                 devices.remove(deviceForDelete);
             }

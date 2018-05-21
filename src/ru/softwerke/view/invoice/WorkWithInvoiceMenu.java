@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 /**
  * Created by DS on 10.05.2018.
@@ -26,30 +26,30 @@ public class WorkWithInvoiceMenu {
         String inputLine;
         switch (item) {
             case InvoicesMenuItems.CREATE_INVOICE:
-                output.printTheString("List of clients: ");
-                output.printNamesOfClients();
+                getOutput().printTheString("List of clients: ");
+                getOutput().printNamesOfClients();
                 clientController.showListOfClients();
                 List<InvoiceLine> invoiceLineList;
                 InvoiceLineController invoiceLineController = new InvoiceLineController();
-                output.printTheString("ID client: ");
-                long idClient = Long.parseLong(output.readInputLine());
+                getOutput().printTheString("ID client: ");
+                long idClient = Long.parseLong(getOutput().readInputLine());
                 Client client = clientController.findClientById(idClient);
                 inputLine = "1";
                 Device device = null;
                 long numberSoldItems;
-                output.printTheString("List of devices: ");
-                output.printNamesOfDevice();
+                getOutput().printTheString("List of devices: ");
+                getOutput().printNamesOfDevice();
                 deviceController.showListOfDevices();
                 while (inputLine.equals("1")) {
-                    output.printTheString("ID of sold item: ");
-                    long idDevice = Long.parseLong(output.readInputLine());
-                    output.printTheString("number of sold item: ");
-                    numberSoldItems = Integer.parseInt(output.readInputLine());
+                    getOutput().printTheString("ID of sold item: ");
+                    long idDevice = Long.parseLong(getOutput().readInputLine());
+                    getOutput().printTheString("number of sold item: ");
+                    numberSoldItems = Integer.parseInt(getOutput().readInputLine());
                     device = deviceController.findDeviceById(idDevice);
                     invoiceLine = invoiceLineController.createInvoiceLine(device, numberSoldItems);
                     invoiceLineController.addInvoiceLineToList(invoiceLine);
-                    output.printTheString("Add another item? 'YES - 1 /NO - 0' ");
-                    inputLine = output.readInputLine();
+                    getOutput().printTheString("Add another item? 'YES - 1 /NO - 0' ");
+                    inputLine = getOutput().readInputLine();
                 }
                 invoiceLineList = invoiceLineController.getInvoiceList();
                 invoiceController.addInvoice(client, invoiceLineList, LocalDateTime.now());
@@ -58,25 +58,25 @@ public class WorkWithInvoiceMenu {
                 invoiceController.showInvoice();
                 break;
             case InvoicesMenuItems.FIND_INVOICES_MADE_BY_DATE:
-                output.printTheString("Enter the date in format dd.mm.year, day without 0 (7.05.2017): ");
-                inputLine = output.readInputLine();
+                getOutput().printTheString("Enter the date in format dd.mm.year, day without 0 (7.05.2017): ");
+                inputLine = getOutput().readInputLine();
                 if (invoiceController.findInvoiceOfDate(inputLine).size() == 0) {
-                    output.printTheString("Not found invoices made by date: " + inputLine);
+                    getOutput().printTheString("Not found invoices made by date: " + inputLine);
                 } else {
                     invoiceController.showInvoice((ArrayList<Invoice>) invoiceController.findInvoiceOfDate(inputLine));
                 }
                 break;
             case InvoicesMenuItems.SHOW_INVOICES_SPECIFIC_PERSON:
-                output.printTheString("Enter last name of person to find invoice of person");
-                inputLine = output.readInputLine();
+                getOutput().printTheString("Enter last name of person to find invoice of person");
+                inputLine = getOutput().readInputLine();
                 invoiceController.showInvoiceOfPerson(inputLine);
                 break;
             case InvoicesMenuItems.SORT_INVOICES_BY_DATE:
                 invoiceController.sortByDate();
                 break;
             case InvoicesMenuItems.DELETE_INVOICE_BY_DATE:
-                output.printTheString("Enter the date in format dd.mm.year, day without 0 (7.05.2017):");
-                inputLine = output.readInputLine();
+                getOutput().printTheString("Enter the date in format dd.mm.year, day without 0 (7.05.2017):");
+                inputLine = getOutput().readInputLine();
                 invoiceController.deleteInvoiceByDate(inputLine);
                 break;
 

@@ -7,7 +7,7 @@ import java.util.Comparator;
 /**
  * Created by DS on 14.05.2018.
  */
-public class ManufacturedComparator implements Comparator<Device> {
+public class ManufacturerComparator implements Comparator<Device> {
 
     @Override
     public int compare(Device o1, Device o2) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class InvoiceController {
 
@@ -21,12 +21,8 @@ public class InvoiceController {
         invoicesList.addInvoiceToList(invoice);
     }
 
-    public InvoiceList getInvoicesList() {
-        return invoicesList;
-    }
-
     public void showInvoiceLine(InvoiceLine line, Invoice invoice) {
-        output.printFormattedString8("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n", String.valueOf(line.getDevice().getId()),
+        System.out.printf("|%5s| |%20s| |%12s| |%12s| |%10s| |%5s| |%25s| \n", String.valueOf(line.getDevice().getId()),
                 String.valueOf(line.getDevice().getType()) + " " + line.getDevice().getManufactured(),
                 String.valueOf(line.getDevice().getColor()), String.valueOf(line.getDevice().getReleaseDate()),
                 String.valueOf(line.getDevice().getPrice()), String.valueOf(line.getCount()),
@@ -35,10 +31,10 @@ public class InvoiceController {
 
     public void showInvoice() {
         for (Invoice invoice : invoicesList.getInvoicesList()) {
-            output.printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
+            getOutput().printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                     invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                     "Sold items: ");
-            output.printNamesOfInvoice();
+            getOutput().printNamesOfInvoice();
             for (InvoiceLine line : invoice.getInvoiceLines()) {
                 showInvoiceLine(line, invoice);
 
@@ -48,10 +44,10 @@ public class InvoiceController {
 
     public void showInvoice(ArrayList<Invoice> iInvoicesList) {
         for (Invoice invoice : iInvoicesList) {
-            output.printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
+            getOutput().printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                     invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                     "Sold items: ");
-            output.printNamesOfInvoice();
+            getOutput().printNamesOfInvoice();
             for (InvoiceLine line : invoice.getInvoiceLines()) {
                 showInvoiceLine(line, invoice);
 
@@ -83,17 +79,17 @@ public class InvoiceController {
         for (Invoice invoice : invoicesList.getInvoicesList()) {
             if (invoice.getClient().getLastName().equalsIgnoreCase(lName)) {
                 flag = true;
-                output.printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
+                getOutput().printTheString("client: " + invoice.getClient().getId() + " " + invoice.getClient().getFirstName() + " " +
                         invoice.getClient().getLastName() + " " + invoice.getClient().getDataBirth() + " \n" +
                         "Sold items: ");
-                output.printNamesOfInvoice();
+                getOutput().printNamesOfInvoice();
                 for (InvoiceLine line : invoice.getInvoiceLines()) {
                     showInvoiceLine(line, invoice);
                 }
             }
         }
         if (!flag) {
-            output.printTheString("Not found invoice of person with last name: " + lName);
+            getOutput().printTheString("Not found invoice of person with last name: " + lName);
 
         }
     }
@@ -106,20 +102,20 @@ public class InvoiceController {
     }
 
     public void deleteInvoiceByDate(String inputLine) {
-        List<Invoice> invoicesOfDate = new ArrayList<>();
+        List<Invoice> invoicesOfDate;
         invoicesOfDate = findInvoiceOfDate(inputLine);
         if (invoicesOfDate.size() == 0) {
-            output.printTheString("Not found invoices made by date: " + inputLine);
+            getOutput().printTheString("Not found invoices made by date: " + inputLine);
         } else if (invoicesOfDate.size() == 1) {
-            output.printTheString("Invoice was delete: ");
+            getOutput().printTheString("Invoice was delete: ");
             showInvoice((ArrayList<Invoice>) invoicesOfDate);
             invoicesList.deleteInvoice(invoicesOfDate.get(0));
         } else {
-        output.printTheString("Invoices made by " + inputLine);
-        output.printNamesOfInvoice();
+        getOutput().printTheString("Invoices made by " + inputLine);
+        getOutput().printNamesOfInvoice();
         showInvoice((ArrayList<Invoice>) invoicesOfDate);
-        output.printTheString("Enter ID of Client to delete invoice: ");
-        long idDelete = Long.valueOf(output.readInputLine());
+        getOutput().printTheString("Enter ID of Client to delete invoice: ");
+        long idDelete = Long.valueOf(getOutput().readInputLine());
         Invoice invoiceDelete = null;
             for (Invoice invoice: invoicesOfDate) {
                 if (invoice.getClient().getId() == idDelete){

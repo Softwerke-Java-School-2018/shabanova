@@ -8,7 +8,7 @@ import ru.softwerke.model.device.TypeOfDevice;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 /**
  * Created by Тапок on 07.05.2018.
@@ -24,12 +24,12 @@ public class WorkWithDeviceMenu {
         switch (item) {
             case DevicesMenuItems.ADD_DEVICE:
                 type = outForDevice.enterDeviceType();
-                manufactured = outForDevice.enterDeviceManuf();
+                manufactured = outForDevice.enterDeviceManufacturer();
                 releaseDate = outForDevice.enterDeviceReleaseDate();
                 color = outForDevice.enterColor();
                 price = outForDevice.enterPrice();
                 deviceController.addDevice(type, manufactured, releaseDate, color, price);
-                output.printTheString("Device was add");
+                getOutput().printTheString("Device was add");
                 break;
 
             case DevicesMenuItems.SHOW_DEVICES_LIST:
@@ -40,41 +40,41 @@ public class WorkWithDeviceMenu {
                 List sortedDevicesByType = deviceController.sortDeviceByType();
                 deviceController.showListOfDevices(sortedDevicesByType);
                 break;
-            case DevicesMenuItems.SORT_DEVICES_BY_MANUFACT:
-                List sortedDevicesByManuf = deviceController.sortDeviceByManuFactured();
+            case DevicesMenuItems.SORT_DEVICES_BY_MANUFACTURER:
+                List sortedDevicesByManuf = deviceController.findDeviceByManufacturer();
                 deviceController.showListOfDevices(sortedDevicesByManuf);
                 break;
-            case DevicesMenuItems.SORT_DEVICES_BY_RELEASEDATE:
+            case DevicesMenuItems.SORT_DEVICES_BY_RELEASE_DATE:
                 List sortedDevicesByRelDate = deviceController.sortDeviceByReleaseDate();
                 deviceController.showListOfDevices(sortedDevicesByRelDate);
 
                 break;
-            case DevicesMenuItems.DELETE_DEVICE_BY_TYPE_AND_MANUF:
-                output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
-                String strType = output.readInputLine();
-                output.printTheString("Enter manufactured of device:");
-                String strManuf = output.readInputLine();
-                deviceController.deleteDeviceByTypeManuf(strType, strManuf);
+            case DevicesMenuItems.DELETE_DEVICE_BY_TYPE_AND_MANUFACTURER:
+                getOutput().printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
+                String strType = getOutput().readInputLine();
+                getOutput().printTheString("Enter manufactured of device:");
+                String strManuf = getOutput().readInputLine();
+                deviceController.deleteDeviceByTypeManufacturer(strType, strManuf);
                 break;
             case DevicesMenuItems.FIND_DEVICES_BY_TYPE:
-                output.printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
-                String typeStr = output.readInputLine();
+                getOutput().printTheString("Enter type of device (Laptop, Mp3_Player, Smartphone, Tablet):");
+                String typeStr = getOutput().readInputLine();
                 List devicesWithTypes = deviceController.findDeviceByType(typeStr);
                 if (devicesWithTypes.size() != 0) {
-                    output.printNamesOfDevice();
+                    getOutput().printNamesOfDevice();
                     deviceController.showListOfDevices(devicesWithTypes);
                 } else {
-                    output.printTheString("Not found device: " + typeStr);
+                    getOutput().printTheString("Not found device: " + typeStr);
                 }
                 break;
-            case DevicesMenuItems.FIND_DEVICES_BY_MANUF:
-                String str = outForDevice.enterDeviceManuf();
-                List devicesWithManuf = deviceController.findDeviceByManuf(str);
+            case DevicesMenuItems.FIND_DEVICES_BY_MANUFACTURER:
+                String str = outForDevice.enterDeviceManufacturer();
+                List devicesWithManuf = deviceController.findDeviceByManufacturer(str);
                 if (devicesWithManuf.size() != 0) {
-                    output.printNamesOfDevice();
+                    getOutput().printNamesOfDevice();
                     deviceController.showListOfDevices(devicesWithManuf);
                 } else {
-                    output.printTheString("Not found device: " + str);
+                    getOutput().printTheString("Not found device: " + str);
                 }
                 break;
         }

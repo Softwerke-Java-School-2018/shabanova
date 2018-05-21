@@ -2,10 +2,8 @@ package ru.softwerke.view.clientsmenu;
 
 import ru.softwerke.controller.client.ClientController;
 import ru.softwerke.controller.client.ControllerViewClient;
-import ru.softwerke.view.invoice.InvoicesMenuItems;
-import ru.softwerke.view.main.MenuItems;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 /**
  * Created by Тапок on 07.05.2018.
@@ -23,32 +21,32 @@ public class WorkWithClientMenu {
                 lastName = ourForClient.enterClientLastName();
                 birth = ourForClient.enterClientBirthName();
                 clientController.addClient(firstName, lastName, birth);
-                output.printTheString("client was add");
+                getOutput().printTheString("client was add");
                 break;
             case ClientsMenuItems.SHOW_CLIENTS_LIST:
                 clientController.showListOfClients();
                 break;
             case ClientsMenuItems.DELETE_CLIENT_FROM_LIST_BY_ID:
                 clientController.showListOfClients();
-                output.printTheString("Input clients ID to remove");
-                long id = Long.parseLong(output.readInputLine());
+                getOutput().printTheString("Input clients ID to remove");
+                long id = Long.parseLong(getOutput().readInputLine());
                 clientController.deleteClientId(id);
                 break;
-            case ClientsMenuItems.FIND_CLIENT_LASTNAME:
-                output.printTheString("Input last name of client: ");
-                inputLine = output.readInputLine();
+            case ClientsMenuItems.FIND_CLIENT_LAST_NAME:
+                getOutput().printTheString("Input last name of client: ");
+                inputLine = getOutput().readInputLine();
                 clientController.findClientByLastName(inputLine);
                 break;
-            case ClientsMenuItems.DELETE_CLIENT_FROM_LIST_BY_LASTNAME:
-                output.printTheString("Enter last name of client:");
-                output.readInputLine();
-                inputLine = output.readInputLine();
+            case ClientsMenuItems.DELETE_CLIENT_FROM_LIST_BY_LAST_NAME:
+                getOutput().printTheString("Enter last name of client:");
+                getOutput().readInputLine();
+                inputLine = getOutput().readInputLine();
                 clientController.deleteClientLastName(inputLine);
                 break;
-            case ClientsMenuItems.SORT_CLIENTS_BY_LASTNAME:
+            case ClientsMenuItems.SORT_CLIENTS_BY_LAST_NAME:
                 clientController.sortByLastName();
                 break;
-            case ClientsMenuItems.SORT_CLIENTS_BY_BIRTHDATE:
+            case ClientsMenuItems.SORT_CLIENTS_BY_BIRTH_DATE:
                 clientController.sortByBirthDate();
                 break;
 

@@ -15,8 +15,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
-
 /**
  * Created by Тапок on 06.05.2018.
  */

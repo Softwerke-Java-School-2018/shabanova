@@ -1,6 +1,6 @@
 package ru.softwerke.view.invoice;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 /**
  * Created by DS on 10.05.2018.
@@ -14,11 +14,12 @@ public class InvoicesMenuItems {
     public final static String DELETE_INVOICE_BY_DATE = "6";
 
     public void displayInvoiceMenu(){
-        output.printTheString("1 - make invoice");
-        output.printTheString("2 - show list of invoices");
-        output.printTheString("3 - find invoice of person");
-        output.printTheString("4 - find invoices made by definite date");
-        output.printTheString("5 - sort invoices by date");
-        output.printTheString("6 - delete invoice of specific date");
+        getOutput().printTheString("0 - back to main menu");
+        getOutput().printTheString("1 - make invoice");
+        getOutput().printTheString("2 - show list of invoices");
+        getOutput().printTheString("3 - find invoice of person");
+        getOutput().printTheString("4 - find invoices made by definite date");
+        getOutput().printTheString("5 - sort invoices by date");
+        getOutput().printTheString("6 - delete invoice of specific date");
     }
 }

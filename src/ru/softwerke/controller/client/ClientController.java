@@ -5,11 +5,11 @@ import ru.softwerke.model.client.ClientsList;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import static ru.softwerke.view.main.Output.output;
+import static ru.softwerke.view.main.Output.getOutput;
 
 public class ClientController {
     private ClientsList clientsList = new ClientsList();
@@ -25,7 +25,7 @@ public class ClientController {
 
     public void showListOfClients(){
         if (clients.size() == 0){
-            output.listClientsIsEmpty();
+            getOutput().listClientsIsEmpty();
         }
         else {
             for (Client client : clients) {
@@ -59,22 +59,22 @@ public class ClientController {
         }
         if (idClients.size() == 1){
             clientsList.deleteClientFromListById(idClients.get(0));
-            output.printTheString("client was deleted");
+            getOutput().printTheString("client was deleted");
         }else if (idClients.size() == 0){
-            output.printTheString("Not found client with last name " + lName);
+            getOutput().printTheString("Not found client with last name " + lName);
         }
         else{
             ControllerViewClient outClient = new ControllerViewClient();
-            output.printTheString("Found more than one person with last name: " +
+            getOutput().printTheString("Found more than one person with last name: " +
                     lName + "\n Input ID of client to remove");
-            output.printNamesOfClients();
+            getOutput().printNamesOfClients();
             for (long i: idClients) {
                 Client client = findClientById(i);
                 outClient.showClient(client);
             }
-            long idToRemove = Long.parseLong(output.readInputLine());
+            long idToRemove = Long.parseLong(getOutput().readInputLine());
             clientsList.deleteClientFromListById(idToRemove);
-            output.printTheString("client was deleted");
+            getOutput().printTheString("client was deleted");
         }
 
     }
@@ -91,11 +91,11 @@ public class ClientController {
         if (idClients.size() == 1) {
             outClient.showClient(clientsWithLastName.get(0));
         } else if (idClients.size() == 0) {
-            output.printTheString("Not found client with last name " + lName);
+            getOutput().printTheString("Not found client with last name " + lName);
         } else {
             ControllerViewClient outClient = new ControllerViewClient();
-            output.printTheString("People with last name " + lName);
-            output.printNamesOfClients();
+            getOutput().printTheString("People with last name " + lName);
+            getOutput().printNamesOfClients();
             for (Client client : clientsWithLastName) {
                 outClient.showClient(client);
             }
@@ -103,21 +103,21 @@ public class ClientController {
     }
 
     public void sortByLastName() {
-        LastNameComparator lNamecompare = new LastNameComparator();
-        List<Client> copyClients = new ArrayList<>();
-        copyClients.addAll(clients);
-        Collections.sort(copyClients,lNamecompare);
-        for (Client client : copyClients) {
+        LastNameComparator lNameCompare = new LastNameComparator();
+        List<Client> copiedClients = new ArrayList<>();
+        copiedClients.addAll(clients);
+        copiedClients.sort(lNameCompare);
+        for (Client client : copiedClients) {
             outClient.showClient(client);
         }
     }
 
     public void sortByBirthDate() {
         BirthDateComparator bDateCompare = new BirthDateComparator();
-        List<Client> copyClients = new ArrayList<>();
-        copyClients.addAll(clients);
-        Collections.sort(copyClients,bDateCompare);
-        for (Client client : copyClients) {
+        List<Client> copiedClients = new ArrayList<>();
+        copiedClients.addAll(clients);
+        copiedClients.sort(bDateCompare);
+        for (Client client : copiedClients) {
             outClient.showClient(client);
         }
     }
